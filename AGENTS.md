@@ -25,6 +25,11 @@ Deterministic, local-first CLI that reconstructs the effective Devin runtime. Ty
 - Unknown fields in Devin config must not crash the tool; preserve them and emit an INFO diagnostic (spec §30).
 - Commits: conventional commits, one task per commit.
 
+## Workflow rules (maintainer directives)
+
+- **Planning:** when a phase or task is unclear or underspecified, use the superpowers `brainstorming` and `writing-plans` skills to clarify and plan before writing code.
+- **Implementation:** do NOT use the superpowers execution machinery (subagent-driven-development, executing-plans, worktree ceremony). Implement directly in this session, following the plan's tasks with test-first discipline and `pnpm verify` as the gate.
+
 ## Key docs
 
 - Spec: `docs/superpowers/specs/2026-08-21-devinscope-v0.1-design.md`
