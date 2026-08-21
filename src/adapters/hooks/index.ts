@@ -6,6 +6,7 @@ import { entityId, sha256 } from "../../runtime/graph.js";
 import type { Diagnostic, RuntimeEntity } from "../../runtime/types.js";
 import { resolveBase, type DiscoveryContext, type SourceAdapter, type SourceLocation } from "../types.js";
 import { HOOK_LOCATIONS } from "./paths.js";
+import { toPosixPath } from "../../platform/index.js";
 
 interface HookDef {
   type?: string;
@@ -50,7 +51,7 @@ async function discoverAll(ctx: DiscoveryContext): Promise<RuntimeEntity[]> {
       const abs = join(base, match);
       const content = await ctx.readFile(abs);
       if (content === null) continue;
-      const displayPath = loc.base === "project" ? relative(ctx.root, abs) : abs;
+      const displayPath = loc.base === "project" ? toPosixPath(relative(ctx.root, abs)) : toPosixPath(abs);
 
       const parsed = parseJsonc(content);
       if (!parsed.ok) {

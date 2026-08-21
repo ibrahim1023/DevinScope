@@ -98,7 +98,8 @@ describe("doctor CLI", () => {
     tmps.push(run.tmp);
     const r = await doctor(run);
     const golden = readFileSync(join(FIXTURES, "clean-project", "expected.output.txt"), "utf8");
-    const normalized = r.stdout.replaceAll(run.root, "<ROOT>").replaceAll(run.home, "<HOME>");
+    const posix = (p: string) => p.replaceAll("\\", "/");
+    const normalized = posix(r.stdout).replaceAll(posix(run.root), "<ROOT>").replaceAll(posix(run.home), "<HOME>");
     expect(normalized).toBe(golden);
   });
 

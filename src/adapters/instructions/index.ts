@@ -4,6 +4,7 @@ import { entityId, sha256 } from "../../runtime/graph.js";
 import type { RuntimeEntity } from "../../runtime/types.js";
 import { resolveBase, type DiscoveryContext, type SourceAdapter } from "../types.js";
 import { INSTRUCTION_LOCATIONS } from "./paths.js";
+import { toPosixPath } from "../../platform/index.js";
 
 export function createInstructionsAdapter(): SourceAdapter {
   return {
@@ -28,7 +29,7 @@ async function discoverAll(ctx: DiscoveryContext): Promise<RuntimeEntity[]> {
       const abs = join(base, match);
       const content = await ctx.readFile(abs);
       if (content === null) continue;
-      const displayPath = loc.base === "project" ? relative(ctx.root, abs) : abs;
+      const displayPath = loc.base === "project" ? toPosixPath(relative(ctx.root, abs)) : toPosixPath(abs);
       entities.push({
         id: entityId(loc.kind, loc.scope, displayPath),
         kind: loc.kind,

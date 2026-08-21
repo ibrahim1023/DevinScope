@@ -58,7 +58,8 @@ describe("why CLI", () => {
     const run = stageDemo();
     const r = await why(run, ["skill:explain-diff-html"]);
     const golden = readFileSync(join(FIXTURES, "demo-repo", "expected.why-output.txt"), "utf8");
-    const normalized = r.stdout.replaceAll(run.root, "<ROOT>").replaceAll(run.home, "<HOME>");
+    const posix = (p: string) => p.replaceAll("\\", "/");
+    const normalized = posix(r.stdout).replaceAll(posix(run.root), "<ROOT>").replaceAll(posix(run.home), "<HOME>");
     expect(normalized).toBe(golden);
   });
 

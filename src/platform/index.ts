@@ -24,9 +24,17 @@ export interface PlatformPaths {
   readFile(absPath: string): Promise<string | null>;
 }
 
+/** Normalize to forward slashes — output and goldens are posix-style on every platform. */
+export function toPosixPath(p: string): string {
+  return p.replaceAll("\\", "/");
+}
+
 export function createPlatform(overrides?: { homeDir?: string }): PlatformPaths {
   const home = overrides?.homeDir ?? homedir();
-  const isWindows = process.platform === "win32";
+  // An explicit homeDir override (tests, DEVINSCOPE_HOME) simulates an XDG
+  // layout under that home on every platform, keeping runs hermetic.
+  const forced = overrides?.homeDir !== undefined;
+  const isWindows = process.platform === "win32" && !forced;
 
   const devinUserConfigDir = () =>
     isWindows
@@ -41,6 +49,7 @@ export function createPlatform(overrides?: { homeDir?: string }): PlatformPaths 
       isWindows
         ? join(process.env.LOCALAPPDATA ?? join(home, "AppData", "Local"), "devin")
         : join(home, ".local", "share", "devin"),
+    // note: with a forced homeDir (tests), isWindows is false → XDG layout
 
     findProjectRoot(start: string): string | null {
       let dir = resolve(start);

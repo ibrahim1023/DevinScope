@@ -33,9 +33,11 @@ export async function runFixture(name: string): Promise<FixtureRun> {
 
 /** Replace volatile absolute paths with <ROOT>/<HOME> for stable goldens. */
 export function normalizeGraph(graph: RuntimeGraph, tmp: string): RuntimeGraph {
+  // adapters emit posix paths; normalize tmp roots to posix before replacing
+  const posix = (p: string) => p.replaceAll("\\", "/");
   const text = JSON.stringify(graph)
-    .replaceAll(join(tmp, "project"), "<ROOT>")
-    .replaceAll(join(tmp, "home"), "<HOME>")
+    .replaceAll(posix(join(tmp, "project")), "<ROOT>")
+    .replaceAll(posix(join(tmp, "home")), "<HOME>")
     // any remaining absolute fixture paths (entities outside root/home are impossible, but be safe)
     .replaceAll(join(FIXTURES_DIR), "<FIXTURES>");
   return JSON.parse(text) as RuntimeGraph;

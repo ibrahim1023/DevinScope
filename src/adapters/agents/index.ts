@@ -5,6 +5,7 @@ import { entityId, sha256 } from "../../runtime/graph.js";
 import type { RuntimeEntity } from "../../runtime/types.js";
 import { resolveBase, type DiscoveryContext, type SourceAdapter } from "../types.js";
 import { AGENT_LOCATIONS, BUILTIN_PROFILES } from "./paths.js";
+import { toPosixPath } from "../../platform/index.js";
 
 export function createAgentAdapter(): SourceAdapter {
   return {
@@ -40,7 +41,7 @@ async function discoverAll(ctx: DiscoveryContext): Promise<RuntimeEntity[]> {
       const abs = join(base, match);
       const content = await ctx.readFile(abs);
       if (content === null) continue;
-      const displayPath = loc.base === "project" || loc.base === undefined ? relative(ctx.root, abs) : abs;
+      const displayPath = loc.base === "project" || loc.base === undefined ? toPosixPath(relative(ctx.root, abs)) : toPosixPath(abs);
 
       const parsed = parseSkillFrontmatter(content);
       const fallbackName = basename(match).startsWith("AGENT") || basename(match).startsWith("agent")

@@ -5,6 +5,7 @@ import { entityId, sha256 } from "../../runtime/graph.js";
 import type { Diagnostic, RuntimeEntity } from "../../runtime/types.js";
 import { resolveBase, type DiscoveryContext, type SourceAdapter } from "../types.js";
 import { PLUGIN_LOCATIONS } from "./paths.js";
+import { toPosixPath } from "../../platform/index.js";
 
 const MANIFEST_CANDIDATES = [
   { path: ".devin-plugin/plugin.json", format: "devin" },
@@ -95,7 +96,7 @@ async function pluginFromDir(ctx: DiscoveryContext, dir: string, relDir: string)
   ]);
 
   const name = typeof manifest?.name === "string" ? manifest.name : relDir.split(sep).at(-2) ?? relDir;
-  const displayPath = manifestPath ?? dir;
+  const displayPath = toPosixPath(manifestPath ?? dir);
   const pluginEntity: RuntimeEntity = {
     id: entityId("plugin", "global", `${name}@${relDir}`),
     kind: "plugin",
@@ -131,12 +132,12 @@ async function pluginFromDir(ctx: DiscoveryContext, dir: string, relDir: string)
       id: entityId(kind, "plugin", `${name}:${rel}`),
       kind,
       name: `${name}:${rel}`,
-      sourcePath: abs,
+      sourcePath: toPosixPath(abs),
       scope: "plugin",
       status: "available",
       provenance: {
         sourceType: "plugin",
-        sourcePath: abs,
+        sourcePath: toPosixPath(abs),
         pluginName: name,
         resolution: "direct",
         docRef: PLUGIN_LOCATIONS[0]!.docRef,
@@ -158,7 +159,7 @@ async function requiredPlugins(ctx: DiscoveryContext): Promise<RuntimeEntity[]> 
   if (!parsed.ok) return [];
   const required = parsed.value.requiredPlugins;
   if (!Array.isArray(required)) return [];
-  const displayPath = relative(ctx.root, abs);
+  const displayPath = toPosixPath(relative(ctx.root, abs));
   return required
     .map((entry) => (typeof entry === "string" ? entry : (entry as { repo?: string }).repo))
     .filter((name): name is string => typeof name === "string")
