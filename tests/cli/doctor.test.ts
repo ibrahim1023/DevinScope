@@ -31,6 +31,7 @@ async function doctor(run: Run, args: string[] = []) {
     env: { DEVINSCOPE_HOME: run.home },
     reject: false,
     stripFinalNewline: false,
+    maxBuffer: 64 * 1024 * 1024,
   });
 }
 

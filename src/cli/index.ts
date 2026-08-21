@@ -1,8 +1,11 @@
 import { Command } from "commander";
+import { explainEntity } from "../diagnostics/explain.js";
 import { runDiscovery } from "../discovery/index.js";
 import { setLogLevel } from "../platform/log.js";
 import { doctorExitCode, renderDoctor } from "../render/doctor.js";
 import { renderJson } from "../render/json.js";
+import { renderWhy, renderWhyJson } from "../render/why.js";
+import { findEntities } from "../runtime/query.js";
 
 const VERSION = "0.1.0";
 
@@ -44,6 +47,42 @@ export async function run(argv: string[]): Promise<number> {
       }
     });
 
+  program
+    .command("why")
+    .description("Why is this thing relevant to Devin here?")
+    .argument("<thing>", "entity name, optionally kind-prefixed (skill:review, mcp:github, hook:PreToolUse:exec)")
+    .option("--json", "machine-readable output")
+    .option("--verbose", "structured info logs on stderr")
+    .option("--debug", "structured debug logs on stderr")
+    .action(async (thing: string, opts: { json?: boolean; verbose?: boolean; debug?: boolean }) => {
+      if (opts.debug) setLogLevel("debug");
+      else if (opts.verbose) setLogLevel("info");
+
+      try {
+        const graph = await runDiscovery({
+          root: process.cwd(),
+          ...(process.env.DEVINSCOPE_HOME ? { homeDir: process.env.DEVINSCOPE_HOME } : {}),
+        });
+        const result = findEntities(graph, thing);
+        if (result.matches.length === 0) {
+          const msg = [`No entity matches "${thing}".`];
+          if (result.suggestions.length > 0) {
+            msg.push("Did you mean:");
+            for (const s of result.suggestions) msg.push(`  ${s}`);
+          }
+          process.stderr.write(msg.join("\n") + "\n");
+          exitCode = 2; // invalid invocation / unknown entity (spec §25)
+          return;
+        }
+        const ex = explainEntity(graph, result.matches[0]!);
+        process.stdout.write(opts.json ? renderWhyJson(ex) : renderWhy(ex, { color: process.stdout.isTTY === true }));
+        exitCode = 0;
+      } catch (err) {
+        process.stderr.write(`discovery failed: ${(err as Error).message}\n`);
+        exitCode = 3;
+      }
+    });
+
   try {
     await program.parseAsync(argv, { from: "user" });
   } catch (err) {
@@ -59,10 +98,13 @@ export async function run(argv: string[]): Promise<number> {
 
 if (import.meta.url === `file://${process.argv[1]}`) {
   run(process.argv.slice(2)).then(
-    (code) => process.exit(code),
+    // set exitCode (not process.exit) so piped stdout/stderr flush fully
+    (code) => {
+      process.exitCode = code;
+    },
     (err) => {
       process.stderr.write(`${String(err)}\n`);
-      process.exit(3);
+      process.exitCode = 3;
     },
   );
 }

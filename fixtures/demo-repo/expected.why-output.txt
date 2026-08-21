@@ -1,0 +1,31 @@
+WHY: explain-diff-html
+Kind: skill
+
+Definition
+  .devin/skills/explain-diff-html/SKILL.md
+
+Scope: project
+Status: available
+Resolution: unknown (devin-docs:extensibility/skills/overview.mdx)
+Hash: 6927d0eea21a…
+Size: 52 B
+
+Also discovered
+  <HOME>/.config/devin/skills/explain-diff-html/SKILL.md (global, available)
+
+Related instruction sources
+  <HOME>/.claude/CLAUDE.md (global, available)
+  <HOME>/.config/devin/AGENTS.md (global, available)
+  <HOME>/.local/share/devin/cli/plugins/cache/github.com_acme_teamkit/2.1.0/AGENTS.md (plugin, available)
+  AGENTS.local.md (project-local, available)
+  AGENTS.md (project, available)
+  <HOME>/.local/share/devin/cli/plugins/cache/github.com_acme_teamkit/2.1.0/rules/deploy.md (plugin, available)
+  .devin/rules/tests.md (project, available)
+
+Hooks that may affect execution
+  PreToolUse:exec — .devin/hooks.v1.json
+
+Diagnostics
+  [MEDIUM] DUP_SKILL — Duplicate skill definitions: explain-diff-html
+
+Note: Devin does not document precedence for this entity kind; all candidates are shown, none declared the winner.
