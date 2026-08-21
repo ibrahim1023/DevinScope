@@ -1,0 +1,38 @@
+{
+  "name": "devinscope",
+  "version": "0.1.0",
+  "description": "See the Devin environment that actually runs — runtime and configuration devtools for Devin.",
+  "type": "module",
+  "license": "MIT",
+  "bin": { "devinscope": "dist/cli.js" },
+  "files": ["dist", "README.md", "LICENSE"],
+  "engines": { "node": ">=24" },
+  "packageManager": "pnpm@11.22.0",
+  "scripts": {
+    "build": "tsdown",
+    "test": "vitest run --project unit",
+    "test:watch": "vitest",
+    "test:golden:update": "vitest run -u",
+    "eval": "vitest run --project evals",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "verify": "pnpm typecheck && pnpm lint && pnpm test && pnpm eval"
+  },
+  "dependencies": {
+    "commander": "^15.0.0",
+    "fast-glob": "^3.3.3",
+    "picocolors": "^1.1.1",
+    "yaml": "^2.9.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^24.0.0",
+    "eslint": "^10.8.1",
+    "execa": "^10.0.1",
+    "tsdown": "^0.22.14",
+    "typescript": "^5.9.0",
+    "typescript-eslint": "^8.67.0",
+    "vitest": "^4.1.11"
+  }
+}
