@@ -1,5 +1,6 @@
 import pc from "picocolors";
 import type { Diagnostic, RuntimeGraph, Severity } from "../runtime/types.js";
+import { redactText } from "../security/redact.js";
 
 const SEVERITIES: Severity[] = ["ERROR", "HIGH", "MEDIUM", "LOW", "INFO"];
 
@@ -51,7 +52,7 @@ export function renderDoctor(graph: RuntimeGraph, opts: { color: boolean }): str
     .join(", ");
   if (counts) out.push(`Diagnostics: ${counts}`);
 
-  return out.join("\n").replace(/\n{3,}/g, "\n\n") + "\n";
+  return redactText(out.join("\n").replace(/\n{3,}/g, "\n\n")) + "\n";
 }
 
 export function formatBytes(bytes: number): string {

@@ -69,7 +69,7 @@ export function renderWhy(ex: Explanation, opts: { color: boolean }): string {
       ? "Note: Devin does not document precedence for this entity kind; all candidates are shown, none declared the winner."
       : "Note: provenance reflects observed files and documented Devin semantics only.",
   );
-  return out.join("\n") + "\n";
+  return redactText(out.join("\n")) + "\n";
 }
 
 /** JSON contract for why: full explanation minus bodies (redacted). */
