@@ -2,7 +2,7 @@
 
 **Date:** 2026-08-21
 **Status:** Approved (approach + toolchain confirmed by maintainer)
-**Source of product truth:** [`product-spec.md`](../../../product-spec.md) — this document records *how* we build it, not *what* it is. Where the two disagree, the product spec wins and this doc is updated.
+**Source of product truth:** the internal product specification (maintainer-private, not published to this repo). This document records *how* we build it, not *what* it is. Where the two disagree, the product spec wins and this doc is updated.
 
 ---
 

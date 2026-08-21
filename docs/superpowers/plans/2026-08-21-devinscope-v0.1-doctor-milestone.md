@@ -8,7 +8,7 @@
 
 **Tech Stack:** TypeScript strict · Node ≥ 24 · pnpm · tsdown · Vitest · commander · zod · yaml · picocolors · fast-glob
 
-**Spec:** [docs/superpowers/specs/2026-08-21-devinscope-v0.1-design.md](../specs/2026-08-21-devinscope-v0.1-design.md) (engineering design) and [product-spec.md](../../../product-spec.md) (product truth).
+**Spec:** [docs/superpowers/specs/2026-08-21-devinscope-v0.1-design.md](../specs/2026-08-21-devinscope-v0.1-design.md) (engineering design), implementing the internal product specification (maintainer-private, not published).
 
 ## Global Constraints
 
