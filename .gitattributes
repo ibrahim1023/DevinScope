@@ -1,0 +1,3 @@
+# Force LF checkouts everywhere — fixture content hashes and goldens must not
+# change with platform line-ending conventions.
+* text=auto eol=lf

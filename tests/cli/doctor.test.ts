@@ -69,7 +69,11 @@ describe("doctor CLI", () => {
   it("duplicate skills: exit 0 by default, exit 1 with --strict", async () => {
     const run = stageFixture("duplicate-skills");
     tmps.push(run.tmp);
-    expect((await doctor(run)).exitCode).toBe(0);
+    const r = await doctor(run);
+    if (r.exitCode !== 0) {
+      console.log("UNEXPECTED doctor exit", r.exitCode, "\nstdout:", r.stdout, "\nstderr:", r.stderr);
+    }
+    expect(r.exitCode).toBe(0);
     const strict = await doctor(run, ["--strict"]);
     expect(strict.exitCode).toBe(1);
     expect(strict.stdout).toContain("DUP_SKILL");

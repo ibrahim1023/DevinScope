@@ -8,6 +8,7 @@ coverage/
 .devin/config.local.json
 .devin/mcp_config.local.json
 AGENTS.local.md
+!fixtures/**/AGENTS.local.md
 
 # DevinScope's own saved snapshots are machine-local state
 .devinscope/snapshots/

@@ -1,4 +1,6 @@
 import { Command } from "commander";
+import { pathToFileURL } from "node:url";
+import { resolve } from "node:path";
 import { explainEntity } from "../diagnostics/explain.js";
 import { runDiscovery } from "../discovery/index.js";
 import { setLogLevel } from "../platform/log.js";
@@ -102,7 +104,10 @@ export async function run(argv: string[]): Promise<number> {
   return exitCode;
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+// Windows-safe entry detection: argv[1] is a native path, import.meta.url a file:// URL
+const isMain = process.argv[1] !== undefined && import.meta.url === pathToFileURL(resolve(process.argv[1])).href;
+
+if (isMain) {
   run(process.argv.slice(2)).then(
     // set exitCode (not process.exit) so piped stdout/stderr flush fully
     (code) => {
