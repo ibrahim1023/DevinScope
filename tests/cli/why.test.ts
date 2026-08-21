@@ -1,4 +1,4 @@
-import { cpSync, mkdtempSync, readFileSync, rmSync } from "node:fs";
+import { cpSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -84,6 +84,71 @@ describe("why CLI", () => {
   it("why without an argument exits 2", async () => {
     const run = stageDemo();
     const r = await execa("node", [CLI, "why"], { cwd: run.root, reject: false });
-    expect(r.exitCode).toBe(2);
+    expect(r.exitCode) .toBe(2);
+  });
+
+  it("explains a plugin with manifest and version", async () => {
+    const run = stageDemo();
+    const r = await why(run, ["plugin:teamkit"]);
+    expect(r.exitCode).toBe(0);
+    expect(r.stdout).toContain("WHY: teamkit");
+    expect(r.stdout).toContain("Kind: plugin");
+    expect(r.stdout).toContain("2.1.0");
+  });
+
+  it("explains a hook and surfaces its broken-command diagnostic", async () => {
+    const run = stageDemo();
+    const r = await why(run, ["hook:PreToolUse:exec"]);
+    expect(r.exitCode).toBe(0);
+    expect(r.stdout).toContain("WHY: PreToolUse:exec");
+    expect(r.stdout).toContain("BROKEN_HOOK_CMD");
+    expect(r.stdout).toContain("scripts/filter-context.sh");
+  });
+
+  it("explains an unavailable MCP server", async () => {
+    const run = stageDemo();
+    const r = await why(run, ["mcp:internal-tools"]);
+    expect(r.exitCode).toBe(0);
+    expect(r.stdout).toContain("WHY: internal-tools");
+    expect(r.stdout).toContain("MCP_CMD_MISSING");
+  });
+
+  it("explains a rule entity", async () => {
+    const run = stageDemo();
+    const r = await why(run, ["rule:tests.md"]);
+    expect(r.exitCode).toBe(0);
+    expect(r.stdout).toContain("WHY: tests.md");
+    expect(r.stdout).toContain("Kind: rule");
+    expect(r.stdout).toContain("CONFLICT_MODAL");
+  });
+
+  it("explains a custom agent", async () => {
+    const tmp = mkdtempSync(join(tmpdir(), "devinscope-why-agent-"));
+    tmps.push(tmp);
+    const root = join(tmp, "project");
+    const home = join(tmp, "home");
+    mkdirSync(join(root, ".devin", "agents"), { recursive: true });
+    mkdirSync(home, { recursive: true });
+    writeFileSync(join(root, ".devin", "agents", "reviewer.md"), "---\nname: reviewer\ndescription: Reviews code\n---\nYou review.\n");
+    const r = await execa("node", [CLI, "why", "agent:reviewer"], {
+      cwd: root,
+      env: { DEVINSCOPE_HOME: home },
+      reject: false,
+      stripFinalNewline: false,
+      maxBuffer: 64 * 1024 * 1024,
+    });
+    expect(r.exitCode).toBe(0);
+    expect(r.stdout).toContain("WHY: reviewer");
+    expect(r.stdout).toContain("Kind: agent");
+  });
+
+  it("why config:permissions matches config files containing that key", async () => {
+    const run = stageDemo();
+    const r = await why(run, ["config:permissions"]);
+    expect(r.exitCode).toBe(0);
+    expect(r.stdout).toContain("WHY: permissions");
+    expect(r.stdout).toContain("Kind: config");
+    // highest-precedence file containing the key headlines (project-local > project)
+    expect(r.stdout).toContain(".devin/config.local.json");
   });
 });

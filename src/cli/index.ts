@@ -74,7 +74,13 @@ export async function run(argv: string[]): Promise<number> {
           exitCode = 2; // invalid invocation / unknown entity (spec §25)
           return;
         }
-        const ex = explainEntity(graph, result.matches[0]!);
+        // config-key lookups (why config:permissions) headline the key, not the file name
+        const entity = result.matches[0]!;
+        const queriedName = thing.startsWith("config:") ? thing.slice("config:".length) : thing;
+        const display = thing.startsWith("config:") && entity.name !== queriedName
+          ? { ...entity, name: queriedName }
+          : entity;
+        const ex = explainEntity(graph, display);
         process.stdout.write(opts.json ? renderWhyJson(ex) : renderWhy(ex, { color: process.stdout.isTTY === true }));
         exitCode = 0;
       } catch (err) {

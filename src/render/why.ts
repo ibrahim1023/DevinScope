@@ -60,7 +60,11 @@ export function renderWhy(ex: Explanation, opts: { color: boolean }): string {
   if (ex.diagnostics.length > 0) {
     out.push("");
     out.push("Diagnostics");
-    for (const d of ex.diagnostics) out.push(`  [${d.severity}] ${d.code} — ${d.title}`);
+    for (const d of ex.diagnostics) {
+      out.push(`  [${d.severity}] ${d.code} — ${d.title}`);
+      for (const ev of d.evidence) out.push(`    ${ev}`);
+      if (d.remediation) out.push(`    → ${d.remediation}`);
+    }
   }
 
   out.push("");

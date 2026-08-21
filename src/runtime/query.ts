@@ -35,7 +35,16 @@ export function findEntities(graph: RuntimeGraph, query: string): QueryResult {
   }
 
   const matches = graph.entities
-    .filter((e) => (kind === null || e.kind === kind) && e.name === name)
+    .filter((e) => {
+      if (kind !== null && e.kind !== kind) return false;
+      if (e.name === name) return true;
+      // config keys are resolvable: why config:permissions matches files containing the key (spec §8.2)
+      if (kind === "config") {
+        const keys = e.metadata.keys as string[] | undefined;
+        return keys?.includes(name) ?? false;
+      }
+      return false;
+    })
     .sort((a, b) => (SCOPE_RANK[a.scope] ?? 9) - (SCOPE_RANK[b.scope] ?? 9) || a.id.localeCompare(b.id));
 
   if (matches.length > 0) return { matches, suggestions: [] };

@@ -27,5 +27,8 @@ Hooks that may affect execution
 
 Diagnostics
   [MEDIUM] DUP_SKILL — Duplicate skill definitions: explain-diff-html
+    .devin/skills/explain-diff-html/SKILL.md
+    <HOME>/.config/devin/skills/explain-diff-html/SKILL.md
+    → Remove or rename the definitions you don't intend to use.
 
 Note: Devin does not document precedence for this entity kind; all candidates are shown, none declared the winner.
