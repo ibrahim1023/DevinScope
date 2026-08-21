@@ -43,26 +43,27 @@ export default tseslint.config(
     },
   },
   {
-    // leaves: no imports from any other src layer (relative ../<layer> escapes included)
-    files: layers.leaf,
+    // adapters may use parsers + platform + runtime + security; nothing above
+    files: ["src/adapters/**"],
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        { patterns: ["**/cli/**", "**/render/**", "**/snapshots/**", "**/diff/**", "**/diagnostics/**", "**/resolution/**"] },
+      ],
+    },
+  },
+  {
+    // other leaves: no imports from any other src layer
+    files: ["src/parsers/**", "src/security/**", "src/platform/**", "src/runtime/**"],
     rules: {
       "no-restricted-imports": [
         "error",
         {
           patterns: [
             "**/cli/**", "**/render/**", "**/snapshots/**", "**/diff/**",
-            "**/diagnostics/**", "**/resolution/**", "**/adapters/**", "**/parsers/**",
+            "**/diagnostics/**", "**/resolution/**", "**/adapters/**",
           ],
         },
-      ],
-    },
-  },
-  {
-    files: ["src/platform/**", "src/runtime/**", "src/security/**", "src/parsers/**"],
-    rules: {
-      "no-restricted-imports": [
-        "error",
-        { patterns: ["**/cli/**", "**/render/**", "**/snapshots/**", "**/diff/**", "**/diagnostics/**", "**/resolution/**", "**/adapters/**"] },
       ],
     },
   },
