@@ -33,8 +33,10 @@ export function createPlatform(overrides?: { homeDir?: string }): PlatformPaths 
   const home = overrides?.homeDir ?? homedir();
   // An explicit homeDir override (tests, DEVINSCOPE_HOME) simulates an XDG
   // layout under that home on every platform, keeping runs hermetic.
+  // Layout only — executable/PATHEXT semantics always follow the real OS.
   const forced = overrides?.homeDir !== undefined;
-  const isWindows = process.platform === "win32" && !forced;
+  const isWindowsPlatform = process.platform === "win32";
+  const isWindows = isWindowsPlatform && !forced;
 
   const devinUserConfigDir = () =>
     isWindows
@@ -69,7 +71,7 @@ export function createPlatform(overrides?: { homeDir?: string }): PlatformPaths 
       }
       const pathEnv = process.env.PATH ?? "";
       const exts =
-        isWindows && process.env.PATHEXT
+        isWindowsPlatform && process.env.PATHEXT
           ? process.env.PATHEXT.split(";")
           : [""];
       for (const dir of pathEnv.split(delimiter)) {

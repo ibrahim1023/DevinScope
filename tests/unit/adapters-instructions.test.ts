@@ -52,7 +52,8 @@ describe("instructions adapter", () => {
 
     const rule = entities.find((e) => e.kind === "rule")!;
     expect(rule.scope).toBe("project");
-    expect(rule.sourcePath).toContain(join(".devin", "rules"));
+    // sourcePaths are posix-normalized on every platform
+    expect(rule.sourcePath).toContain(".devin/rules");
   });
 
   it("discovers global AGENTS.md under the devin user config dir", async () => {
