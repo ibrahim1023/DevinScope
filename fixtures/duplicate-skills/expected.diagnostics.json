@@ -1,0 +1,17 @@
+[
+  {
+    "code": "DUP_SKILL",
+    "title": "Duplicate skill definitions: review",
+    "severity": "MEDIUM",
+    "entityIds": [
+      "skill:global:review@<HOME>/.config/devin/skills/review/SKILL.md",
+      "skill:project:review@.agents/skills/review/SKILL.md"
+    ],
+    "evidence": [
+      ".agents/skills/review/SKILL.md",
+      "<HOME>/.config/devin/skills/review/SKILL.md"
+    ],
+    "explanation": "2 definitions of skill \"review\" exist across scopes. Devin's documented precedence does not specify which wins, so all are reported as available — and their contents differ.",
+    "remediation": "Remove or rename the definitions you don't intend to use."
+  }
+]

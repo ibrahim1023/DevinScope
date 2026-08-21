@@ -1,0 +1,77 @@
+{
+  "schema": "devinscope/v1",
+  "entities": [
+    {
+      "id": "config:project:.devin/config.json",
+      "kind": "config",
+      "name": ".devin/config.json",
+      "sourcePath": ".devin/config.json",
+      "scope": "project",
+      "status": "available",
+      "provenance": {
+        "sourceType": "project-config",
+        "sourcePath": ".devin/config.json",
+        "resolution": "direct",
+        "docRef": "devin-docs:extensibility/configuration.mdx"
+      },
+      "contentHash": "bc1c9e7e8a9525ab988da9dab2755466e3c5e5cb618249daab25ee46e95a4516",
+      "metadata": {
+        "locationId": "config-project",
+        "keys": [
+          "requiredPlugins"
+        ],
+        "unknownFields": []
+      }
+    },
+    {
+      "id": "plugin:global:other@github.com_acme_other/1.0.0",
+      "kind": "plugin",
+      "name": "other",
+      "sourcePath": "<HOME>/.local/share/devin/cli/plugins/cache/github.com_acme_other/1.0.0/.devin-plugin/plugin.json",
+      "scope": "global",
+      "status": "available",
+      "provenance": {
+        "sourceType": "plugin",
+        "sourcePath": "<HOME>/.local/share/devin/cli/plugins/cache/github.com_acme_other/1.0.0/.devin-plugin/plugin.json",
+        "resolution": "direct",
+        "docRef": "devin-docs:extensibility/plugins/overview.mdx"
+      },
+      "metadata": {
+        "locationId": "plugin-cache",
+        "manifestFormat": "devin",
+        "cacheDir": "github.com_acme_other/1.0.0",
+        "version": "1.0.0",
+        "contributions": {
+          "skills": 0,
+          "agents": 0,
+          "hooks": 0,
+          "mcps": 0,
+          "rules": 0
+        }
+      }
+    },
+    {
+      "id": "plugin:project:acme/review-tools@required",
+      "kind": "plugin",
+      "name": "acme/review-tools",
+      "sourcePath": ".devin/config.json",
+      "scope": "project",
+      "status": "available",
+      "provenance": {
+        "sourceType": "project-config",
+        "sourcePath": ".devin/config.json",
+        "resolution": "direct",
+        "docRef": "devin-docs:extensibility/plugins/overview.mdx"
+      },
+      "contentHash": "bc1c9e7e8a9525ab988da9dab2755466e3c5e5cb618249daab25ee46e95a4516",
+      "metadata": {
+        "locationId": "plugin-required",
+        "declared": "required"
+      }
+    }
+  ],
+  "metrics": {
+    "instructionBytes": 0,
+    "fileCount": 3
+  }
+}

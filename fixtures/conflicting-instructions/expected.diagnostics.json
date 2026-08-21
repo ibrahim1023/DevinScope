@@ -1,0 +1,18 @@
+[
+  {
+    "code": "CONFLICT_MODAL",
+    "title": "Possible instruction conflict",
+    "severity": "MEDIUM",
+    "entityIds": [
+      "instruction:project:AGENTS.md",
+      "rule:project:.devin/rules/tests.md"
+    ],
+    "evidence": [
+      "AGENTS.md: \"- Always run the complete test suite before committing.\"",
+      ".devin/rules/tests.md: \"Only run tests directly affected by the change.\"",
+      "confidence: medium"
+    ],
+    "explanation": "Two active instruction sources contain opposing modal directives concerning a shared topic. This is a heuristic inference, not a claim about Devin's reasoning.",
+    "remediation": "Reconcile the directives or scope one of the sources."
+  }
+]

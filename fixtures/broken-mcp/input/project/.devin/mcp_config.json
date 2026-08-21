@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "bad-url": { "url": "not-a-url" },
+    "needs-env": { "command": "npx", "args": ["-y", "some-server"], "env": { "API_KEY": "${env:DEVINSCOPE_FIXTURE_UNSET_VAR}" } },
+    "missing-cmd": { "command": "./bin/nope.sh" }
+  }
+}

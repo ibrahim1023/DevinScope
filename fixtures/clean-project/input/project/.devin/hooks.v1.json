@@ -1,0 +1,8 @@
+{
+  "PreToolUse": [
+    {
+      "matcher": "exec",
+      "hooks": [{ "type": "command", "command": "node ./scripts/check.js" }]
+    }
+  ]
+}

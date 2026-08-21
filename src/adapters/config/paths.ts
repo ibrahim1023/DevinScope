@@ -24,6 +24,9 @@ export const KNOWN_CONFIG_KEYS = [
   "include_gitignored_files",
   "sandbox",
   "subagents_enabled",
+  "requiredPlugins",
+  "optionalPlugins",
+  "forbiddenPlugins",
 ];
 
 /** User-config-only keys per global-vs-local.mdx ("What's Available at Each Level"). */

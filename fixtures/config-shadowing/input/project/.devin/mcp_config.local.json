@@ -1,0 +1,5 @@
+{
+  "mcpServers": {
+    "github": { "url": "https://localhost:9999/mcp" }
+  }
+}

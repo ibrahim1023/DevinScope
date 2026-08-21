@@ -1,0 +1,95 @@
+{
+  "schema": "devinscope/v1",
+  "entities": [
+    {
+      "id": "config:project:.devin/config.json",
+      "kind": "config",
+      "name": ".devin/config.json",
+      "sourcePath": ".devin/config.json",
+      "scope": "project",
+      "status": "available",
+      "provenance": {
+        "sourceType": "project-config",
+        "sourcePath": ".devin/config.json",
+        "resolution": "direct",
+        "docRef": "devin-docs:extensibility/configuration.mdx"
+      },
+      "contentHash": "4efafeb2f8d66dc77795c8e9c093885df48ba252add62e3a744bc27eaefe73e8",
+      "metadata": {
+        "locationId": "config-project",
+        "keys": [
+          "permissions"
+        ],
+        "unknownFields": []
+      }
+    },
+    {
+      "id": "hook:project:PreToolUse:exec@.devin/hooks.v1.json#0.0",
+      "kind": "hook",
+      "name": "PreToolUse:exec",
+      "sourcePath": ".devin/hooks.v1.json",
+      "scope": "project",
+      "status": "available",
+      "provenance": {
+        "sourceType": "filesystem",
+        "sourcePath": ".devin/hooks.v1.json",
+        "resolution": "direct",
+        "docRef": "devin-docs:extensibility/hooks/overview.mdx"
+      },
+      "contentHash": "afb80cf9ed2e98b03ee813a90029fd3b5f8cdeb49efb1a250a9961f6b347342c",
+      "metadata": {
+        "locationId": "hooks-v1",
+        "event": "PreToolUse",
+        "matcher": "exec",
+        "type": "command",
+        "command": "node ./scripts/check.js"
+      }
+    },
+    {
+      "id": "instruction:project:AGENTS.md",
+      "kind": "instruction",
+      "name": "AGENTS.md",
+      "sourcePath": "AGENTS.md",
+      "scope": "project",
+      "status": "available",
+      "provenance": {
+        "sourceType": "filesystem",
+        "sourcePath": "AGENTS.md",
+        "resolution": "direct",
+        "docRef": "devin-docs:extensibility/rules.mdx"
+      },
+      "contentHash": "c7f874b0008428a12f2b4e9c76a4b31c03fa5b77e1ce4ac313d637e0902740bc",
+      "metadata": {
+        "bytes": 89,
+        "locationId": "project-agents",
+        "body": "# Project Rules\n\n- Use pnpm, not npm or yarn\n- Write tests for all new utility functions\n"
+      }
+    },
+    {
+      "id": "skill:project:review@.devin/skills/review/SKILL.md",
+      "kind": "skill",
+      "name": "review",
+      "sourcePath": ".devin/skills/review/SKILL.md",
+      "scope": "project",
+      "status": "available",
+      "provenance": {
+        "sourceType": "filesystem",
+        "sourcePath": ".devin/skills/review/SKILL.md",
+        "resolution": "direct",
+        "docRef": "devin-docs:extensibility/skills/overview.mdx"
+      },
+      "contentHash": "f978ad0864da076144a38af296787acf12b5d83a1774a3211dce6fbd9bdd48de",
+      "metadata": {
+        "locationId": "skills-devin-project",
+        "supportingFiles": 0,
+        "bodyChars": 51,
+        "unknownFields": [],
+        "description": "Review code changes before committing"
+      }
+    }
+  ],
+  "metrics": {
+    "instructionBytes": 89,
+    "fileCount": 4
+  }
+}

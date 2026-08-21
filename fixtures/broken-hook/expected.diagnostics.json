@@ -1,0 +1,17 @@
+[
+  {
+    "code": "BROKEN_HOOK_CMD",
+    "title": "Hook command is broken",
+    "severity": "HIGH",
+    "entityIds": [
+      "hook:project:PreToolUse:exec@.devin/hooks.v1.json#0.0"
+    ],
+    "evidence": [
+      ".devin/hooks.v1.json",
+      "./scripts/filter-context.sh",
+      "./scripts/filter-context.sh does not exist"
+    ],
+    "explanation": "Hook command cannot run: ./scripts/filter-context.sh does not exist.",
+    "remediation": "Create the referenced script or fix the command path."
+  }
+]

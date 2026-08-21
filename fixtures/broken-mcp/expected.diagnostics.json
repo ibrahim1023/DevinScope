@@ -1,0 +1,41 @@
+[
+  {
+    "code": "MCP_CMD_MISSING",
+    "title": "MCP stdio command not available",
+    "severity": "HIGH",
+    "entityIds": [
+      "mcp:project:missing-cmd@.devin/mcp_config.json"
+    ],
+    "evidence": [
+      ".devin/mcp_config.json",
+      "./bin/nope.sh does not exist"
+    ],
+    "explanation": "Server \"missing-cmd\" cannot start: ./bin/nope.sh does not exist.",
+    "remediation": "Install the command or fix the path."
+  },
+  {
+    "code": "MCP_BAD_URL",
+    "title": "MCP server URL looks malformed",
+    "severity": "MEDIUM",
+    "entityIds": [
+      "mcp:project:bad-url@.devin/mcp_config.json"
+    ],
+    "evidence": [
+      "not-a-url"
+    ],
+    "explanation": "URL \"not-a-url\" is not a valid http(s) URL."
+  },
+  {
+    "code": "MCP_MISSING_ENV",
+    "title": "MCP server references unset environment variables",
+    "severity": "MEDIUM",
+    "entityIds": [
+      "mcp:project:needs-env@.devin/mcp_config.json"
+    ],
+    "evidence": [
+      "DEVINSCOPE_FIXTURE_UNSET_VAR"
+    ],
+    "explanation": "Server \"needs-env\" references environment variable name(s) not present in this environment: DEVINSCOPE_FIXTURE_UNSET_VAR.",
+    "remediation": "Set the variable(s) or adjust the server config."
+  }
+]

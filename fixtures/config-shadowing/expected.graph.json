@@ -1,0 +1,82 @@
+{
+  "schema": "devinscope/v1",
+  "entities": [
+    {
+      "sourcePath": "<HOME>/.config/devin/mcp_config.json",
+      "scope": "global",
+      "provenance": {
+        "sourceType": "global-config",
+        "sourcePath": "<HOME>/.config/devin/mcp_config.json",
+        "resolution": "documented-precedence",
+        "docRef": "devin-docs:reference/configuration/global-vs-local.mdx",
+        "overriddenBy": [
+          "mcp:project-local:github@.devin/mcp_config.local.json"
+        ]
+      },
+      "contentHash": "df5e1bb73ac758f137901365a57b087fa40bfe186f80d7f41b99830875761a2d",
+      "metadata": {
+        "locationId": "mcp-user",
+        "legacy": false,
+        "transport": "stdio",
+        "command": "npx"
+      },
+      "id": "mcp:global:github@<HOME>/.config/devin/mcp_config.json",
+      "kind": "mcp",
+      "name": "github",
+      "status": "shadowed"
+    },
+    {
+      "sourcePath": ".devin/mcp_config.local.json",
+      "scope": "project-local",
+      "provenance": {
+        "sourceType": "project-config",
+        "sourcePath": ".devin/mcp_config.local.json",
+        "resolution": "documented-precedence",
+        "docRef": "devin-docs:reference/configuration/global-vs-local.mdx",
+        "overrides": [
+          "mcp:project:github@.devin/mcp_config.json",
+          "mcp:global:github@<HOME>/.config/devin/mcp_config.json"
+        ]
+      },
+      "contentHash": "7b68fc432f312a503330d86724a70f482207e608e25ef08fdd6b526e9151b9bd",
+      "metadata": {
+        "locationId": "mcp-project-local",
+        "legacy": false,
+        "transport": "http",
+        "url": "https://localhost:9999/mcp"
+      },
+      "id": "mcp:project-local:github@.devin/mcp_config.local.json",
+      "kind": "mcp",
+      "name": "github",
+      "status": "active"
+    },
+    {
+      "sourcePath": ".devin/mcp_config.json",
+      "scope": "project",
+      "provenance": {
+        "sourceType": "project-config",
+        "sourcePath": ".devin/mcp_config.json",
+        "resolution": "documented-precedence",
+        "docRef": "devin-docs:reference/configuration/global-vs-local.mdx",
+        "overriddenBy": [
+          "mcp:project-local:github@.devin/mcp_config.local.json"
+        ]
+      },
+      "contentHash": "d4c04f77577250c361fb7ad2df424717f228e06a3b999f996c1e88b158311f96",
+      "metadata": {
+        "locationId": "mcp-project",
+        "legacy": false,
+        "transport": "http",
+        "url": "https://mcp.github.example/mcp"
+      },
+      "id": "mcp:project:github@.devin/mcp_config.json",
+      "kind": "mcp",
+      "name": "github",
+      "status": "shadowed"
+    }
+  ],
+  "metrics": {
+    "instructionBytes": 0,
+    "fileCount": 3
+  }
+}

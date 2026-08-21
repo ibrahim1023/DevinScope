@@ -12,7 +12,7 @@
     "build": "tsdown",
     "test": "vitest run --project unit",
     "test:watch": "vitest",
-    "test:golden:update": "vitest run -u",
+    "test:golden:update": "UPDATE_FIXTURES=1 vitest run --project evals tests/evals/generate.test.ts",
     "eval": "vitest run --project evals",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",

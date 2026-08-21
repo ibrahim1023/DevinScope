@@ -1,0 +1,78 @@
+{
+  "schema": "devinscope/v1",
+  "entities": [
+    {
+      "sourcePath": ".devin/mcp_config.json",
+      "scope": "project",
+      "provenance": {
+        "sourceType": "project-config",
+        "sourcePath": ".devin/mcp_config.json",
+        "resolution": "direct",
+        "docRef": "devin-docs:extensibility/mcp/configuration.mdx"
+      },
+      "contentHash": "a0044440d7abfa9dfef0630892b949220773a01707ea52214918e4e872309d3b",
+      "metadata": {
+        "locationId": "mcp-project",
+        "legacy": false,
+        "transport": "http",
+        "url": "not-a-url"
+      },
+      "id": "mcp:project:bad-url@.devin/mcp_config.json",
+      "kind": "mcp",
+      "name": "bad-url",
+      "status": "available"
+    },
+    {
+      "sourcePath": ".devin/mcp_config.json",
+      "scope": "project",
+      "provenance": {
+        "sourceType": "project-config",
+        "sourcePath": ".devin/mcp_config.json",
+        "resolution": "direct",
+        "docRef": "devin-docs:extensibility/mcp/configuration.mdx"
+      },
+      "contentHash": "a0044440d7abfa9dfef0630892b949220773a01707ea52214918e4e872309d3b",
+      "metadata": {
+        "locationId": "mcp-project",
+        "legacy": false,
+        "transport": "stdio",
+        "command": "./bin/nope.sh"
+      },
+      "id": "mcp:project:missing-cmd@.devin/mcp_config.json",
+      "kind": "mcp",
+      "name": "missing-cmd",
+      "status": "available"
+    },
+    {
+      "sourcePath": ".devin/mcp_config.json",
+      "scope": "project",
+      "provenance": {
+        "sourceType": "project-config",
+        "sourcePath": ".devin/mcp_config.json",
+        "resolution": "direct",
+        "docRef": "devin-docs:extensibility/mcp/configuration.mdx"
+      },
+      "contentHash": "a0044440d7abfa9dfef0630892b949220773a01707ea52214918e4e872309d3b",
+      "metadata": {
+        "locationId": "mcp-project",
+        "legacy": false,
+        "transport": "stdio",
+        "command": "npx",
+        "env": {
+          "API_KEY": "configured"
+        },
+        "envRefs": [
+          "DEVINSCOPE_FIXTURE_UNSET_VAR"
+        ]
+      },
+      "id": "mcp:project:needs-env@.devin/mcp_config.json",
+      "kind": "mcp",
+      "name": "needs-env",
+      "status": "available"
+    }
+  ],
+  "metrics": {
+    "instructionBytes": 0,
+    "fileCount": 3
+  }
+}

@@ -1,0 +1,15 @@
+[
+  {
+    "code": "PLUGIN_REQUIRED_MISSING",
+    "title": "Repo requires a plugin that is not installed",
+    "severity": "MEDIUM",
+    "entityIds": [
+      "plugin:project:acme/review-tools@required"
+    ],
+    "evidence": [
+      "acme/review-tools"
+    ],
+    "explanation": ".devin/config.json requires \"acme/review-tools\" but no matching plugin is installed at user level; Devin would fail or skip the install.",
+    "remediation": "Run: devin plugins install acme/review-tools"
+  }
+]

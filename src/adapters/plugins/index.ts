@@ -2,7 +2,7 @@ import fg from "fast-glob";
 import { join, relative, sep } from "node:path";
 import { parseJsonc } from "../../parsers/index.js";
 import { entityId, sha256 } from "../../runtime/graph.js";
-import type { RuntimeEntity } from "../../runtime/types.js";
+import type { Diagnostic, RuntimeEntity } from "../../runtime/types.js";
 import { resolveBase, type DiscoveryContext, type SourceAdapter } from "../types.js";
 import { PLUGIN_LOCATIONS } from "./paths.js";
 
@@ -22,7 +22,7 @@ export function createPluginAdapter(): SourceAdapter {
       return discoverAll(ctx);
     },
     async validate(entities) {
-      return entities
+      const diagnostics: Diagnostic[] = entities
         .filter((e) => e.metadata.manifestFormat === null)
         .map((e) => ({
           code: "PLUGIN_NO_MANIFEST",
@@ -33,6 +33,25 @@ export function createPluginAdapter(): SourceAdapter {
           explanation: "No .devin-plugin/plugin.json, .claude-plugin/plugin.json, or plugin.json found; Devin may not load this plugin.",
           remediation: "Add a plugin manifest (see Devin plugin docs).",
         }));
+
+      // Repo-required plugins that no installed plugin provides (name or repo tail match)
+      const installed = entities.filter((e) => e.metadata.locationId === "plugin-cache");
+      for (const req of entities.filter((e) => e.metadata.declared === "required")) {
+        const tail = req.name.split("/").at(-1)!;
+        const found = installed.some((p) => p.name === req.name || p.name === tail || String(p.metadata.cacheDir).includes(tail));
+        if (!found) {
+          diagnostics.push({
+            code: "PLUGIN_REQUIRED_MISSING",
+            title: "Repo requires a plugin that is not installed",
+            severity: "MEDIUM",
+            entityIds: [req.id],
+            evidence: [req.name],
+            explanation: `.devin/config.json requires "${req.name}" but no matching plugin is installed at user level; Devin would fail or skip the install.`,
+            remediation: `Run: devin plugins install ${req.name}`,
+          });
+        }
+      }
+      return diagnostics;
     },
   };
 }

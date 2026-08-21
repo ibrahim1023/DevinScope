@@ -1,0 +1,30 @@
+[
+  {
+    "code": "SHADOWED_ENTITY",
+    "title": "mcp \"github\" is shadowed by a higher-priority definition",
+    "severity": "INFO",
+    "entityIds": [
+      "mcp:global:github@<HOME>/.config/devin/mcp_config.json",
+      "mcp:project-local:github@.devin/mcp_config.local.json"
+    ],
+    "evidence": [
+      "<HOME>/.config/devin/mcp_config.json",
+      "mcp:project-local:github@.devin/mcp_config.local.json"
+    ],
+    "explanation": "Documented precedence (devin-docs:reference/configuration/global-vs-local.mdx) gives the higher-level definition priority."
+  },
+  {
+    "code": "SHADOWED_ENTITY",
+    "title": "mcp \"github\" is shadowed by a higher-priority definition",
+    "severity": "INFO",
+    "entityIds": [
+      "mcp:project:github@.devin/mcp_config.json",
+      "mcp:project-local:github@.devin/mcp_config.local.json"
+    ],
+    "evidence": [
+      ".devin/mcp_config.json",
+      "mcp:project-local:github@.devin/mcp_config.local.json"
+    ],
+    "explanation": "Documented precedence (devin-docs:reference/configuration/global-vs-local.mdx) gives the higher-level definition priority."
+  }
+]

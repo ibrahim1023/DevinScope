@@ -1,0 +1,59 @@
+{
+  "schema": "devinscope/v1",
+  "entities": [
+    {
+      "id": "skill:global:review@<HOME>/.config/devin/skills/review/SKILL.md",
+      "kind": "skill",
+      "name": "review",
+      "sourcePath": "<HOME>/.config/devin/skills/review/SKILL.md",
+      "scope": "global",
+      "status": "available",
+      "provenance": {
+        "sourceType": "global-config",
+        "sourcePath": "<HOME>/.config/devin/skills/review/SKILL.md",
+        "resolution": "unknown",
+        "docRef": "devin-docs:extensibility/skills/overview.mdx"
+      },
+      "contentHash": "a586d018304a9616aa310510236ac5e94e921819e8bd5735e342e442de1d86db",
+      "metadata": {
+        "locationId": "skills-devin-global",
+        "supportingFiles": 0,
+        "bodyChars": 48,
+        "unknownFields": [],
+        "description": "Global review skill with different body",
+        "duplicateOf": [
+          "skill:project:review@.agents/skills/review/SKILL.md"
+        ]
+      }
+    },
+    {
+      "id": "skill:project:review@.agents/skills/review/SKILL.md",
+      "kind": "skill",
+      "name": "review",
+      "sourcePath": ".agents/skills/review/SKILL.md",
+      "scope": "project",
+      "status": "available",
+      "provenance": {
+        "sourceType": "filesystem",
+        "sourcePath": ".agents/skills/review/SKILL.md",
+        "resolution": "unknown",
+        "docRef": "devin-docs:extensibility/skills/overview.mdx"
+      },
+      "contentHash": "73b173b7f77abc428387f8bada03d54db690a1508acf1e3ca96394c0f99f7a8a",
+      "metadata": {
+        "locationId": "skills-agents-project",
+        "supportingFiles": 0,
+        "bodyChars": 51,
+        "unknownFields": [],
+        "description": "Project-local review skill",
+        "duplicateOf": [
+          "skill:global:review@<HOME>/.config/devin/skills/review/SKILL.md"
+        ]
+      }
+    }
+  ],
+  "metrics": {
+    "instructionBytes": 0,
+    "fileCount": 2
+  }
+}

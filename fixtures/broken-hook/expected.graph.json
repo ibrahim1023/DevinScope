@@ -1,0 +1,31 @@
+{
+  "schema": "devinscope/v1",
+  "entities": [
+    {
+      "id": "hook:project:PreToolUse:exec@.devin/hooks.v1.json#0.0",
+      "kind": "hook",
+      "name": "PreToolUse:exec",
+      "sourcePath": ".devin/hooks.v1.json",
+      "scope": "project",
+      "status": "available",
+      "provenance": {
+        "sourceType": "filesystem",
+        "sourcePath": ".devin/hooks.v1.json",
+        "resolution": "direct",
+        "docRef": "devin-docs:extensibility/hooks/overview.mdx"
+      },
+      "contentHash": "a1f3657c854bef280d8688e125f1316b1b4b9d874882345a7b4f1ee9c03884a4",
+      "metadata": {
+        "locationId": "hooks-v1",
+        "event": "PreToolUse",
+        "matcher": "exec",
+        "type": "command",
+        "command": "./scripts/filter-context.sh"
+      }
+    }
+  ],
+  "metrics": {
+    "instructionBytes": 0,
+    "fileCount": 1
+  }
+}

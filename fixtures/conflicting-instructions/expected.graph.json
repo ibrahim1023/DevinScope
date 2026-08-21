@@ -1,0 +1,49 @@
+{
+  "schema": "devinscope/v1",
+  "entities": [
+    {
+      "id": "instruction:project:AGENTS.md",
+      "kind": "instruction",
+      "name": "AGENTS.md",
+      "sourcePath": "AGENTS.md",
+      "scope": "project",
+      "status": "available",
+      "provenance": {
+        "sourceType": "filesystem",
+        "sourcePath": "AGENTS.md",
+        "resolution": "direct",
+        "docRef": "devin-docs:extensibility/rules.mdx"
+      },
+      "contentHash": "67cfaef4e48c392c8aa10f0e8d4782597f5f056904876476f1a4e5ee9976f736",
+      "metadata": {
+        "bytes": 73,
+        "locationId": "project-agents",
+        "body": "# Project Rules\n\n- Always run the complete test suite before committing.\n"
+      }
+    },
+    {
+      "id": "rule:project:.devin/rules/tests.md",
+      "kind": "rule",
+      "name": "tests.md",
+      "sourcePath": ".devin/rules/tests.md",
+      "scope": "project",
+      "status": "available",
+      "provenance": {
+        "sourceType": "filesystem",
+        "sourcePath": ".devin/rules/tests.md",
+        "resolution": "direct",
+        "docRef": "devin-docs:extensibility/rules.mdx"
+      },
+      "contentHash": "b531c144dacf6db9c7746632f62451c3deb33996f281c9e50defb211ee278330",
+      "metadata": {
+        "bytes": 76,
+        "locationId": "devin-rules",
+        "body": "---\ntrigger: always_on\n---\n\nOnly run tests directly affected by the change.\n"
+      }
+    }
+  ],
+  "metrics": {
+    "instructionBytes": 149,
+    "fileCount": 2
+  }
+}

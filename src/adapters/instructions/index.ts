@@ -43,7 +43,7 @@ async function discoverAll(ctx: DiscoveryContext): Promise<RuntimeEntity[]> {
           docRef: loc.docRef,
         },
         contentHash: sha256(content),
-        metadata: { bytes: Buffer.byteLength(content, "utf8"), locationId: loc.id },
+        metadata: { bytes: Buffer.byteLength(content, "utf8"), locationId: loc.id, body: content },
       });
     }
   }
