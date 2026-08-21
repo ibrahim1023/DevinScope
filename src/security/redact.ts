@@ -19,10 +19,11 @@ const REFERENCE = /^\$\{(env:[^}]+|file:[^}]+)\}$/;
 
 function redactEnvAssignments(input: string): string {
   // "API_KEY": "value"  /  API_KEY=value  /  API_KEY: value
+  const MARKERS = new Set(["configured", "missing", "redacted", "<redacted>"]);
   return input.replace(
     /(["']?[A-Za-z_][A-Za-z0-9_]*(?:TOKEN|KEY|SECRET|PASSWORD|CREDENTIAL)[A-Za-z0-9_]*["']?\s*[:=]\s*)["']?(\$\{(?:env|file):[^}]+\}|[^"'\s,}]+)["']?/gi,
     (m, prefix: string, value: string) =>
-      REFERENCE.test(value) ? m : `${prefix}"<redacted>"`,
+      REFERENCE.test(value) || MARKERS.has(value) ? m : `${prefix}"<redacted>"`,
   );
 }
 
