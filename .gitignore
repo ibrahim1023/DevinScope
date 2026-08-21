@@ -1,0 +1,17 @@
+node_modules/
+dist/
+coverage/
+*.log
+.DS_Store
+
+# Local overrides must never be committed
+.devin/config.local.json
+.devin/mcp_config.local.json
+AGENTS.local.md
+
+# DevinScope's own saved snapshots are machine-local state
+.devinscope/snapshots/
+
+# Private planning docs — not for the public repo
+product-spec.md
+task.md
