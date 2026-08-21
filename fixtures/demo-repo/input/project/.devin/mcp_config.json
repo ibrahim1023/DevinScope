@@ -1,0 +1,5 @@
+{
+  "mcpServers": {
+    "internal-tools": { "command": "./bin/internal-mcp.sh" }
+  }
+}

@@ -62,13 +62,13 @@ async function discoverAll(ctx: DiscoveryContext): Promise<RuntimeEntity[]> {
   const cacheBase = join(resolveBase(ctx, cacheLoc.base), "cli", "plugins", "cache");
   const dirs = await fg("*/*", { cwd: cacheBase, onlyDirectories: true, dot: true }).catch(() => [] as string[]);
   for (const dir of dirs.sort()) {
-    entities.push(await pluginFromDir(ctx, join(cacheBase, dir), dir));
+    entities.push(...(await pluginFromDir(ctx, join(cacheBase, dir), dir)));
   }
   entities.push(...(await requiredPlugins(ctx)));
   return entities;
 }
 
-async function pluginFromDir(ctx: DiscoveryContext, dir: string, relDir: string): Promise<RuntimeEntity> {
+async function pluginFromDir(ctx: DiscoveryContext, dir: string, relDir: string): Promise<RuntimeEntity[]> {
   let manifest: Record<string, unknown> | null = null;
   let manifestFormat: string | null = null;
   let manifestPath: string | null = null;
@@ -96,7 +96,7 @@ async function pluginFromDir(ctx: DiscoveryContext, dir: string, relDir: string)
 
   const name = typeof manifest?.name === "string" ? manifest.name : relDir.split(sep).at(-2) ?? relDir;
   const displayPath = manifestPath ?? dir;
-  return {
+  const pluginEntity: RuntimeEntity = {
     id: entityId("plugin", "global", `${name}@${relDir}`),
     kind: "plugin",
     name,
@@ -117,6 +117,36 @@ async function pluginFromDir(ctx: DiscoveryContext, dir: string, relDir: string)
       contributions: { skills: skills.length, agents: agents.length, hooks: hooks.length, mcps: mcps.length, rules: rules.length },
     },
   };
+
+  // Plugins inject instructions too: root AGENTS.md (always-on) and rules/*.md
+  // (triggered) per plugins/overview.mdx — surface them as instruction/rule entities.
+  const instructionEntities: RuntimeEntity[] = [];
+  for (const rel of [...rules].sort()) {
+    const abs = join(dir, rel);
+    const content = await ctx.readFile(abs);
+    if (content === null) continue;
+    const isRuleFile = rel.startsWith("rules/");
+    const kind = isRuleFile ? ("rule" as const) : ("instruction" as const);
+    instructionEntities.push({
+      id: entityId(kind, "plugin", `${name}:${rel}`),
+      kind,
+      name: `${name}:${rel}`,
+      sourcePath: abs,
+      scope: "plugin",
+      status: "available",
+      provenance: {
+        sourceType: "plugin",
+        sourcePath: abs,
+        pluginName: name,
+        resolution: "direct",
+        docRef: PLUGIN_LOCATIONS[0]!.docRef,
+      },
+      contentHash: sha256(content),
+      metadata: { locationId: "plugin-cache", bytes: Buffer.byteLength(content, "utf8"), body: content },
+    });
+  }
+
+  return [pluginEntity, ...instructionEntities];
 }
 
 async function requiredPlugins(ctx: DiscoveryContext): Promise<RuntimeEntity[]> {

@@ -1,0 +1,78 @@
+[
+  {
+    "code": "BROKEN_HOOK_CMD",
+    "title": "Hook command is broken",
+    "severity": "HIGH",
+    "entityIds": [
+      "hook:project:PreToolUse:exec@.devin/hooks.v1.json#0.0"
+    ],
+    "evidence": [
+      ".devin/hooks.v1.json",
+      "./scripts/filter-context.sh",
+      "./scripts/filter-context.sh does not exist"
+    ],
+    "explanation": "Hook command cannot run: ./scripts/filter-context.sh does not exist.",
+    "remediation": "Create the referenced script or fix the command path."
+  },
+  {
+    "code": "MCP_CMD_MISSING",
+    "title": "MCP stdio command not available",
+    "severity": "HIGH",
+    "entityIds": [
+      "mcp:project:internal-tools@.devin/mcp_config.json"
+    ],
+    "evidence": [
+      ".devin/mcp_config.json",
+      "./bin/internal-mcp.sh does not exist"
+    ],
+    "explanation": "Server \"internal-tools\" cannot start: ./bin/internal-mcp.sh does not exist.",
+    "remediation": "Install the command or fix the path."
+  },
+  {
+    "code": "CONFLICT_MODAL",
+    "title": "Possible instruction conflict",
+    "severity": "MEDIUM",
+    "entityIds": [
+      "instruction:project:AGENTS.md",
+      "rule:project:.devin/rules/tests.md"
+    ],
+    "evidence": [
+      "AGENTS.md: \"- Always run the complete test suite before committing.\"",
+      ".devin/rules/tests.md: \"Only run tests directly affected by the change.\"",
+      "confidence: medium"
+    ],
+    "explanation": "Two active instruction sources contain opposing modal directives concerning a shared topic. This is a heuristic inference, not a claim about Devin's reasoning.",
+    "remediation": "Reconcile the directives or scope one of the sources."
+  },
+  {
+    "code": "CONFLICT_MODAL",
+    "title": "Possible instruction conflict",
+    "severity": "MEDIUM",
+    "entityIds": [
+      "instruction:project-local:AGENTS.local.md",
+      "rule:plugin:teamkit:rules/deploy.md"
+    ],
+    "evidence": [
+      "AGENTS.local.md: \"- Always deploy on Friday afternoons.\"",
+      "<HOME>/.local/share/devin/cli/plugins/cache/github.com_acme_teamkit/2.1.0/rules/deploy.md: \"Never deploy on Friday afternoons.\"",
+      "confidence: medium"
+    ],
+    "explanation": "Two active instruction sources contain opposing modal directives concerning a shared topic. This is a heuristic inference, not a claim about Devin's reasoning.",
+    "remediation": "Reconcile the directives or scope one of the sources."
+  },
+  {
+    "code": "DUP_SKILL",
+    "title": "Duplicate skill definitions: explain-diff-html",
+    "severity": "MEDIUM",
+    "entityIds": [
+      "skill:global:explain-diff-html@<HOME>/.config/devin/skills/explain-diff-html/SKILL.md",
+      "skill:project:explain-diff-html@.devin/skills/explain-diff-html/SKILL.md"
+    ],
+    "evidence": [
+      ".devin/skills/explain-diff-html/SKILL.md",
+      "<HOME>/.config/devin/skills/explain-diff-html/SKILL.md"
+    ],
+    "explanation": "2 definitions of skill \"explain-diff-html\" exist across scopes. Devin's documented precedence does not specify which wins, so all are reported as available — and their contents differ.",
+    "remediation": "Remove or rename the definitions you don't intend to use."
+  }
+]

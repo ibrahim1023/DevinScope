@@ -83,6 +83,31 @@ const EXPECTATIONS: Record<string, ScenarioAssertions> = {
       expect(c.explanation).toMatch(/heuristic/i);
     },
   },
+  // spec §39 dogfood scenario
+  "demo-repo": {
+    diagnostics: [
+      ["BROKEN_HOOK_CMD", "HIGH"],
+      ["MCP_CMD_MISSING", "HIGH"],
+      ["CONFLICT_MODAL", "MEDIUM"],
+      ["CONFLICT_MODAL", "MEDIUM"],
+      ["DUP_SKILL", "MEDIUM"],
+    ],
+    check(g) {
+      // 7 discovered instruction sources
+      const instructionSources = g.entities.filter((e) => e.kind === "instruction" || e.kind === "rule");
+      expect(instructionSources).toHaveLength(7);
+
+      // 1 duplicate/shadowed skill
+      const skills = g.entities.filter((e) => e.kind === "skill" && e.name === "explain-diff-html");
+      expect(skills).toHaveLength(2);
+
+      // project-local override present
+      expect(g.entities.some((e) => e.scope === "project-local")).toBe(true);
+
+      // plugin contributes its entities
+      expect(g.entities.some((e) => e.kind === "plugin" && e.name === "teamkit")).toBe(true);
+    },
+  },
 };
 
 describe("fixture corpus", () => {

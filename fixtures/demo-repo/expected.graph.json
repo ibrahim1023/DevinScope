@@ -1,0 +1,321 @@
+{
+  "schema": "devinscope/v1",
+  "entities": [
+    {
+      "id": "config:project-local:.devin/config.local.json",
+      "kind": "config",
+      "name": ".devin/config.local.json",
+      "sourcePath": ".devin/config.local.json",
+      "scope": "project-local",
+      "status": "available",
+      "provenance": {
+        "sourceType": "project-config",
+        "sourcePath": ".devin/config.local.json",
+        "resolution": "direct",
+        "docRef": "devin-docs:extensibility/configuration.mdx"
+      },
+      "contentHash": "72bf3da7b2bf73610cac859a729ed3cf7660984a45054d7dd5641232689fddd6",
+      "metadata": {
+        "locationId": "config-project-local",
+        "keys": [
+          "permissions"
+        ],
+        "unknownFields": []
+      }
+    },
+    {
+      "id": "config:project:.devin/config.json",
+      "kind": "config",
+      "name": ".devin/config.json",
+      "sourcePath": ".devin/config.json",
+      "scope": "project",
+      "status": "available",
+      "provenance": {
+        "sourceType": "project-config",
+        "sourcePath": ".devin/config.json",
+        "resolution": "direct",
+        "docRef": "devin-docs:extensibility/configuration.mdx"
+      },
+      "contentHash": "4814998e9239a9c37c2a36b8892315d8aaf2f4afb8a817934e8f42114f56676f",
+      "metadata": {
+        "locationId": "config-project",
+        "keys": [
+          "permissions"
+        ],
+        "unknownFields": []
+      }
+    },
+    {
+      "id": "hook:project:PreToolUse:exec@.devin/hooks.v1.json#0.0",
+      "kind": "hook",
+      "name": "PreToolUse:exec",
+      "sourcePath": ".devin/hooks.v1.json",
+      "scope": "project",
+      "status": "available",
+      "provenance": {
+        "sourceType": "filesystem",
+        "sourcePath": ".devin/hooks.v1.json",
+        "resolution": "direct",
+        "docRef": "devin-docs:extensibility/hooks/overview.mdx"
+      },
+      "contentHash": "a1f3657c854bef280d8688e125f1316b1b4b9d874882345a7b4f1ee9c03884a4",
+      "metadata": {
+        "locationId": "hooks-v1",
+        "event": "PreToolUse",
+        "matcher": "exec",
+        "type": "command",
+        "command": "./scripts/filter-context.sh"
+      }
+    },
+    {
+      "id": "instruction:global:<HOME>/.claude/CLAUDE.md",
+      "kind": "instruction",
+      "name": "CLAUDE.md",
+      "sourcePath": "<HOME>/.claude/CLAUDE.md",
+      "scope": "global",
+      "status": "available",
+      "provenance": {
+        "sourceType": "global-config",
+        "sourcePath": "<HOME>/.claude/CLAUDE.md",
+        "resolution": "direct",
+        "docRef": "devin-docs:extensibility/rules.mdx"
+      },
+      "contentHash": "7c6b8ef40e574f2358072cfb449186f4bb23130b2654bb625ff289882b2092c9",
+      "metadata": {
+        "bytes": 46,
+        "locationId": "global-claude",
+        "body": "# Claude global memory\n\n- Keep answers short.\n"
+      }
+    },
+    {
+      "id": "instruction:global:<HOME>/.config/devin/AGENTS.md",
+      "kind": "instruction",
+      "name": "AGENTS.md",
+      "sourcePath": "<HOME>/.config/devin/AGENTS.md",
+      "scope": "global",
+      "status": "available",
+      "provenance": {
+        "sourceType": "global-config",
+        "sourcePath": "<HOME>/.config/devin/AGENTS.md",
+        "resolution": "unknown",
+        "docRef": "devin-docs:extensibility/rules.mdx"
+      },
+      "contentHash": "8b94d0eb2b750f9b7f51c785e71834a31c06fe67db868579bc5a22e2b49d9ecd",
+      "metadata": {
+        "bytes": 81,
+        "locationId": "global-agents",
+        "body": "# My Global Rules\n\n- Always write commit messages in conventional commit format.\n",
+        "duplicateOf": [
+          "instruction:project:AGENTS.md"
+        ]
+      }
+    },
+    {
+      "id": "instruction:plugin:teamkit:AGENTS.md",
+      "kind": "instruction",
+      "name": "teamkit:AGENTS.md",
+      "sourcePath": "<HOME>/.local/share/devin/cli/plugins/cache/github.com_acme_teamkit/2.1.0/AGENTS.md",
+      "scope": "plugin",
+      "status": "available",
+      "provenance": {
+        "sourceType": "plugin",
+        "sourcePath": "<HOME>/.local/share/devin/cli/plugins/cache/github.com_acme_teamkit/2.1.0/AGENTS.md",
+        "pluginName": "teamkit",
+        "resolution": "direct",
+        "docRef": "devin-docs:extensibility/plugins/overview.mdx"
+      },
+      "contentHash": "461e940d1cbdc7e721fb25b08fcd595fe173f0c09482bd42ad94d1357fbad456",
+      "metadata": {
+        "locationId": "plugin-cache",
+        "bytes": 51,
+        "body": "# Teamkit plugin instructions\n\n- Prefer small PRs.\n"
+      }
+    },
+    {
+      "id": "instruction:project-local:AGENTS.local.md",
+      "kind": "instruction",
+      "name": "AGENTS.local.md",
+      "sourcePath": "AGENTS.local.md",
+      "scope": "project-local",
+      "status": "available",
+      "provenance": {
+        "sourceType": "filesystem",
+        "sourcePath": "AGENTS.local.md",
+        "resolution": "direct",
+        "docRef": "devin-docs:extensibility/rules.mdx"
+      },
+      "contentHash": "c42faf9ac4a3e59132a5efd4a2ff5be42c86adcb9075f11c418414fec87b0480",
+      "metadata": {
+        "bytes": 56,
+        "locationId": "project-agents-local",
+        "body": "# Personal Rules\n\n- Always deploy on Friday afternoons.\n"
+      }
+    },
+    {
+      "id": "instruction:project:AGENTS.md",
+      "kind": "instruction",
+      "name": "AGENTS.md",
+      "sourcePath": "AGENTS.md",
+      "scope": "project",
+      "status": "available",
+      "provenance": {
+        "sourceType": "filesystem",
+        "sourcePath": "AGENTS.md",
+        "resolution": "unknown",
+        "docRef": "devin-docs:extensibility/rules.mdx"
+      },
+      "contentHash": "fa666f8d6e953698e7dc406405da81dbb507982b63f49dc59070aed99606243e",
+      "metadata": {
+        "bytes": 100,
+        "locationId": "project-agents",
+        "body": "# Project Rules\n\n- Always run the complete test suite before committing.\n- Use pnpm for everything.\n",
+        "duplicateOf": [
+          "instruction:global:<HOME>/.config/devin/AGENTS.md"
+        ]
+      }
+    },
+    {
+      "sourcePath": ".devin/mcp_config.json",
+      "scope": "project",
+      "provenance": {
+        "sourceType": "project-config",
+        "sourcePath": ".devin/mcp_config.json",
+        "resolution": "direct",
+        "docRef": "devin-docs:extensibility/mcp/configuration.mdx"
+      },
+      "contentHash": "f30c32f17f1703895f47abfa81426607cb0154019a4179cccb5061f5970869f2",
+      "metadata": {
+        "locationId": "mcp-project",
+        "legacy": false,
+        "transport": "stdio",
+        "command": "./bin/internal-mcp.sh"
+      },
+      "id": "mcp:project:internal-tools@.devin/mcp_config.json",
+      "kind": "mcp",
+      "name": "internal-tools",
+      "status": "available"
+    },
+    {
+      "id": "plugin:global:teamkit@github.com_acme_teamkit/2.1.0",
+      "kind": "plugin",
+      "name": "teamkit",
+      "sourcePath": "<HOME>/.local/share/devin/cli/plugins/cache/github.com_acme_teamkit/2.1.0/.devin-plugin/plugin.json",
+      "scope": "global",
+      "status": "available",
+      "provenance": {
+        "sourceType": "plugin",
+        "sourcePath": "<HOME>/.local/share/devin/cli/plugins/cache/github.com_acme_teamkit/2.1.0/.devin-plugin/plugin.json",
+        "resolution": "direct",
+        "docRef": "devin-docs:extensibility/plugins/overview.mdx"
+      },
+      "metadata": {
+        "locationId": "plugin-cache",
+        "manifestFormat": "devin",
+        "cacheDir": "github.com_acme_teamkit/2.1.0",
+        "version": "2.1.0",
+        "contributions": {
+          "skills": 0,
+          "agents": 0,
+          "hooks": 0,
+          "mcps": 0,
+          "rules": 2
+        }
+      }
+    },
+    {
+      "id": "rule:plugin:teamkit:rules/deploy.md",
+      "kind": "rule",
+      "name": "teamkit:rules/deploy.md",
+      "sourcePath": "<HOME>/.local/share/devin/cli/plugins/cache/github.com_acme_teamkit/2.1.0/rules/deploy.md",
+      "scope": "plugin",
+      "status": "available",
+      "provenance": {
+        "sourceType": "plugin",
+        "sourcePath": "<HOME>/.local/share/devin/cli/plugins/cache/github.com_acme_teamkit/2.1.0/rules/deploy.md",
+        "pluginName": "teamkit",
+        "resolution": "direct",
+        "docRef": "devin-docs:extensibility/plugins/overview.mdx"
+      },
+      "contentHash": "200d02375fe33e99c92e8b4bac2a8107cf4f1d4c728413a9c90e9b69e4b01bf8",
+      "metadata": {
+        "locationId": "plugin-cache",
+        "bytes": 63,
+        "body": "---\ntrigger: always_on\n---\n\nNever deploy on Friday afternoons.\n"
+      }
+    },
+    {
+      "id": "rule:project:.devin/rules/tests.md",
+      "kind": "rule",
+      "name": "tests.md",
+      "sourcePath": ".devin/rules/tests.md",
+      "scope": "project",
+      "status": "available",
+      "provenance": {
+        "sourceType": "filesystem",
+        "sourcePath": ".devin/rules/tests.md",
+        "resolution": "direct",
+        "docRef": "devin-docs:extensibility/rules.mdx"
+      },
+      "contentHash": "b531c144dacf6db9c7746632f62451c3deb33996f281c9e50defb211ee278330",
+      "metadata": {
+        "bytes": 76,
+        "locationId": "devin-rules",
+        "body": "---\ntrigger: always_on\n---\n\nOnly run tests directly affected by the change.\n"
+      }
+    },
+    {
+      "id": "skill:global:explain-diff-html@<HOME>/.config/devin/skills/explain-diff-html/SKILL.md",
+      "kind": "skill",
+      "name": "explain-diff-html",
+      "sourcePath": "<HOME>/.config/devin/skills/explain-diff-html/SKILL.md",
+      "scope": "global",
+      "status": "available",
+      "provenance": {
+        "sourceType": "global-config",
+        "sourcePath": "<HOME>/.config/devin/skills/explain-diff-html/SKILL.md",
+        "resolution": "unknown",
+        "docRef": "devin-docs:extensibility/skills/overview.mdx"
+      },
+      "contentHash": "dda75d70b6a82d660c32d1067050064d83d0dd2bbcd62119a2b08ce885a81707",
+      "metadata": {
+        "locationId": "skills-devin-global",
+        "supportingFiles": 0,
+        "bodyChars": 43,
+        "unknownFields": [],
+        "description": "Explain diffs",
+        "duplicateOf": [
+          "skill:project:explain-diff-html@.devin/skills/explain-diff-html/SKILL.md"
+        ]
+      }
+    },
+    {
+      "id": "skill:project:explain-diff-html@.devin/skills/explain-diff-html/SKILL.md",
+      "kind": "skill",
+      "name": "explain-diff-html",
+      "sourcePath": ".devin/skills/explain-diff-html/SKILL.md",
+      "scope": "project",
+      "status": "available",
+      "provenance": {
+        "sourceType": "filesystem",
+        "sourcePath": ".devin/skills/explain-diff-html/SKILL.md",
+        "resolution": "unknown",
+        "docRef": "devin-docs:extensibility/skills/overview.mdx"
+      },
+      "contentHash": "6927d0eea21a708236ef8955962bc9125b4c6915c6ba8788a226b70dbc462469",
+      "metadata": {
+        "locationId": "skills-devin-project",
+        "supportingFiles": 0,
+        "bodyChars": 52,
+        "unknownFields": [],
+        "description": "Explain a diff as a styled HTML page",
+        "duplicateOf": [
+          "skill:global:explain-diff-html@<HOME>/.config/devin/skills/explain-diff-html/SKILL.md"
+        ]
+      }
+    }
+  ],
+  "metrics": {
+    "instructionBytes": 473,
+    "fileCount": 14
+  }
+}
