@@ -27,6 +27,9 @@ export const KNOWN_CONFIG_KEYS = [
   "requiredPlugins",
   "optionalPlugins",
   "forbiddenPlugins",
+  "version",
+  "devin",
+  "shell",
 ];
 
 /** User-config-only keys per global-vs-local.mdx ("What's Available at Each Level"). */

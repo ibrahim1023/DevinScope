@@ -20,14 +20,14 @@ export default tseslint.config(
   {
     files: ["src/**/*.ts", "tests/**/*.ts"],
     rules: {
-      "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
+      "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_", varsIgnorePattern: "^_", ignoreRestSiblings: true }],
     },
   },
   {
-    // cli may not reach past the engine surface
+    // cli may not reach past the engine surface (platform allowed for log setup)
     files: layers.top,
     rules: {
-      "no-restricted-imports": ["error", { patterns: ["**/adapters/**", "**/parsers/**", "**/platform/**"] }],
+      "no-restricted-imports": ["error", { patterns: ["**/adapters/**", "**/parsers/**"] }],
     },
   },
   {

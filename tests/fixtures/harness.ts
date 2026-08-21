@@ -2,33 +2,10 @@ import { cpSync, existsSync, mkdtempSync, readdirSync, readFileSync, rmSync, wri
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { createAgentAdapter } from "../../src/adapters/agents/index.js";
-import { createConfigAdapter } from "../../src/adapters/config/index.js";
-import { createHookAdapter } from "../../src/adapters/hooks/index.js";
-import { createInstructionsAdapter } from "../../src/adapters/instructions/index.js";
-import { createMcpAdapter } from "../../src/adapters/mcp/index.js";
-import { createPluginAdapter } from "../../src/adapters/plugins/index.js";
-import { createSkillAdapter } from "../../src/adapters/skills/index.js";
-import type { DiscoveryContext, SourceAdapter } from "../../src/adapters/types.js";
-import { runDiagnostics } from "../../src/diagnostics/index.js";
-import { createPlatform } from "../../src/platform/index.js";
-import { resolveEntities } from "../../src/resolution/index.js";
-import { emptyGraph, sortGraph } from "../../src/runtime/graph.js";
-import type { Diagnostic, RuntimeEntity, RuntimeGraph } from "../../src/runtime/types.js";
+import { runDiscovery } from "../../src/discovery/index.js";
+import type { RuntimeGraph } from "../../src/runtime/types.js";
 
 const FIXTURES_DIR = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "fixtures");
-
-export function allAdapters(): SourceAdapter[] {
-  return [
-    createInstructionsAdapter(),
-    createSkillAdapter(),
-    createHookAdapter(),
-    createMcpAdapter(),
-    createConfigAdapter(),
-    createPluginAdapter(),
-    createAgentAdapter(),
-  ];
-}
 
 export interface FixtureRun {
   graph: RuntimeGraph;
@@ -40,7 +17,7 @@ export interface FixtureRun {
  * Copy fixtures/<name>/input to a temp dir, mapping:
  *   input/project/** → <tmp>/project (the repo root)
  *   input/home/**    → <tmp>/home    (fake $HOME)
- * Then run discovery → resolution → diagnostics.
+ * Then run the production discovery pipeline (src/discovery).
  */
 export async function runFixture(name: string): Promise<FixtureRun> {
   const src = join(FIXTURES_DIR, name, "input");
@@ -50,29 +27,8 @@ export async function runFixture(name: string): Promise<FixtureRun> {
   if (existsSync(join(src, "project"))) cpSync(join(src, "project"), root, { recursive: true });
   if (existsSync(join(src, "home"))) cpSync(join(src, "home"), home, { recursive: true });
 
-  const platform = createPlatform({ homeDir: home });
-  const ctx: DiscoveryContext = { root, homeDir: home, platform, readFile: (p) => platform.readFile(p) };
-
-  const graph = emptyGraph(root);
-  const diagnostics: Diagnostic[] = [];
-  let entities: RuntimeEntity[] = [];
-  for (const adapter of allAdapters()) {
-    const found = await adapter.discover(ctx);
-    entities.push(...found);
-    if (adapter.validate) diagnostics.push(...(await adapter.validate(found, ctx)));
-  }
-  entities = resolveEntities(entities);
-  graph.entities = entities;
-  graph.diagnostics = diagnostics;
-  graph.diagnostics = runDiagnostics(graph);
-  graph.metrics = {
-    instructionBytes: entities
-      .filter((e) => e.kind === "instruction" || e.kind === "rule")
-      .reduce((sum, e) => sum + ((e.metadata.bytes as number | undefined) ?? 0), 0),
-    fileCount: entities.length,
-  };
-
-  return { graph: sortGraph(graph), tmp, cleanup: () => rmSync(tmp, { recursive: true, force: true }) };
+  const graph = await runDiscovery({ root, homeDir: home });
+  return { graph, tmp, cleanup: () => rmSync(tmp, { recursive: true, force: true }) };
 }
 
 /** Replace volatile absolute paths with <ROOT>/<HOME> for stable goldens. */

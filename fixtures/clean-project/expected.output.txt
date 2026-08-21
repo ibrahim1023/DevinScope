@@ -1,0 +1,7 @@
+DEVINSCOPE DOCTOR
+
+No diagnostics.
+
+SUMMARY
+4 entities — 1 config, 1 hook, 1 instruction, 1 skill
+Static instruction footprint: 89 B
