@@ -24,6 +24,16 @@ DevinScope's gate is `pnpm verify` (typecheck + lint + unit tests + fixture/gold
 4. Re-run `pnpm verify`. Repeat until green.
 5. Only then commit.
 
+## CI gate (mandatory when a remote + workflow exist)
+
+A green local run is necessary but not sufficient — the matrix (macOS/Linux/Windows) is part of the gate.
+
+1. After every `git push`, immediately get the triggered run: `gh run list --limit 1 --json databaseId,headSha` and confirm the SHA matches your push.
+2. Watch it to completion: `gh run watch <id> --exit-status`.
+3. If any job fails: `gh run view <id> --log-failed`, diagnose, fix, re-verify locally, push again — and watch that run too.
+4. Never stack a new push on a red run. Never claim the work is done while CI is red or unwatched.
+5. Local passes can hide CI-only failures (parallel-worker races, OS path semantics, gitignore/eol drift) — that is exactly why this gate exists.
+
 ## Product invariants to check while fixing
 
 - No secret values in any output/log/snapshot — canary tests must stay green.

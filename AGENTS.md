@@ -29,6 +29,7 @@ Deterministic, local-first CLI that reconstructs the effective Devin runtime. Ty
 
 - **Planning:** when a phase or task is unclear or underspecified, use the superpowers `brainstorming` and `writing-plans` skills to clarify and plan before writing code.
 - **Implementation:** do NOT use the superpowers execution machinery (subagent-driven-development, executing-plans, worktree ceremony). Implement directly in this session, following the plan's tasks with test-first discipline and `pnpm verify` as the gate.
+- **CI gate (mandatory):** never push without `pnpm verify` green locally, and after every push immediately watch the triggered workflow (`gh run watch <id> --exit-status`, or `gh run list` → `gh run view --log-failed` on failure) until it completes. A push is not done until CI is green on every matrix job. Never stack a new push on top of a red run — fix first, then push.
 
 ## Key docs
 

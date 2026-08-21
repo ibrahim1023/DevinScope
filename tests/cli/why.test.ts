@@ -3,7 +3,7 @@ import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { execa } from "execa";
-import { afterAll, beforeAll, describe, expect, it } from "vitest";
+import { afterAll, describe, expect, it } from "vitest";
 
 const REPO_ROOT = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
 const CLI = join(REPO_ROOT, "dist", "cli.js");
@@ -32,9 +32,7 @@ async function why(run: { root: string; home: string }, args: string[]) {
   });
 }
 
-beforeAll(async () => {
-  await execa("pnpm", ["build"], { cwd: REPO_ROOT });
-}, 60_000);
+// dist/cli.js is built once by tests/global-setup.ts — never per file (parallel workers race)
 
 afterAll(() => {
   for (const t of tmps) rmSync(t, { recursive: true, force: true });
